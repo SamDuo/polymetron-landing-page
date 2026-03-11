@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polymetron – AI Property Intelligence for Commercial Real Estate</title>
+    <style>
+        :root {
+            --color-bg-primary: #0f172a;
+            --color-bg-secondary: #1e293b;
+            --color-text-primary: #f1f5f9;
+            --color-text-secondary: #cbd5e1;
+            --color-accent: #38bdf8;
+            --color-accent-hover: #0ea5e9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: var(--color-bg-secondary);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        nav a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            margin: 0 1.5rem;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: var(--color-accent);
+        }
+        
+        .hero {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><defs><linearGradient id="grad1"><stop offset="0%25" style="stop-color:%2338bdf8;stop-opacity:0.1" /><stop offset="100%25" style="stop-color:%2338bdf8;stop-opacity:0" /></linearGradient></defs><circle cx="200" cy="100" r="150" fill="url(%23grad1)"/><circle cx="1000" cy="300" r="120" fill="url(%23grad1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            max-width: 800px;
+            margin: 1.5rem auto 2rem;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 0.875rem 1.75rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: var(--color-accent);
+            color: var(--color-bg-primary);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--color-accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(56, 189, 248, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(56, 189, 248, 0.1);
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 4rem 2rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            letter-spacing: -0.01em;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+        
+        .how-it-works {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .step {
+            background: var(--color-bg-secondary);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            position: relative;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--color-accent);
+            color: var(--color-bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step p {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature p {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+        }
+        
+        .pricing {
+            background: var(--color-bg-secondary);
+            margin-top: 3rem;
+            padding: 2rem;
+            border-radius: 0.75rem;
+        }
+        
+        .pricing-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .pricing-card {
+            background: var(--color-bg-primary);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            text-align: center;
+        }
+        
+        .pricing-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--color-accent);
+        }
+        
+        .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            margin-top: 1rem;
+            text-align: left;
+        }
+        
+        .pricing-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: 1rem;
+            margin-top: 4rem;
+        }
+        
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        footer {
+            background: var(--color-bg-secondary);
+            padding: 2rem;
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(56, 189, 248, 0.1);
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .stat {
+            padding: 1.5rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">Polymetron</div>
+        <nav>
+            <a href="#how">How it works</a>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Measure every asset, from orbit to foundation</h1>
+            <p>AI-powered property intelligence for commercial real estate and construction. Combine satellite monitoring with drone + LiDAR inspection to deliver portfolio-wide, data-driven decisions.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Get Early Access</button>
+                <button class="btn btn-secondary">View Demo</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section id="how">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Three layers of intelligence, one integrated platform</p>
+            
+            <div class="how-it-works">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Satellite Monitoring</h3>
+                    <p>Continuous macro-level change detection across your portfolio. Track land-use shifts, tree-cover loss, neighborhood risk patterns, and environmental context.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Drone + LiDAR Capture</h3>
+                    <p>On-demand high-resolution flights deliver 3D point clouds and RGB imagery. Detect roof condition, façade damage, grading issues, and building deformation.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>AI Condition Scores</h3>
+                    <p>Automated models fuse satellite and drone data to generate condition scores, structural-risk flags, capex estimates, and portfolio-level rankings.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features -->
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title">What You Get</h2>
+            <p class="section-subtitle">Built for commercial owners, developers, and insurers</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">📡</div>
+                    <h4>Portfolio Dashboard</h4>
+                    <p>Map-based view of all assets with condition scores, satellite context, and drill-down reports.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🏢</div>
+                    <h4>Condition Scoring</h4>
+                    <p>Roof, façade, site, and structural health ranked 0–100. Automated defect detection and capex estimates.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h4>Risk Alerts</h4>
+                    <p>Continuous monitoring with early-warning alerts for deformation, drainage issues, and environmental risks.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📈</div>
+                    <h4>Portfolio Analytics</h4>
+                    <p>Rank assets by risk and condition, forecast capex, and track improvements over time.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📄</div>
+                    <h4>PDF Reports</h4>
+                    <p>One-page asset summaries exportable for lender, investor, and insurance presentations.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔌</div>
+                    <h4>API (Coming Soon)</h4>
+                    <p>Embed Polymetron scores into your prop-tech, lending, or insurance platform.</p>
+                </div>
+            </div>
+            
+            <!-- Stats Section -->
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">70%</div>
+                    <div class="stat-label">Inspection time reduction</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">86%</div>
+                    <div class="stat-label">Gross margin efficiency</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Continuous monitoring</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing -->
+    <section id="pricing">
+        <div class="container">
+            <h2 class="section-title">Simple Pricing</h2>
+            <p class="section-subtitle">Scale with your portfolio. Start with Basic, grow to Enterprise.</p>
+            
+            <div class="pricing">
+                <div class="pricing-table">
+                    <div class="pricing-card">
+                        <h4>Basic</h4>
+                        <div class="price">$1,500</div>
+                        <p>/building/year</p>
+                        <ul>
+                            <li>✓ Satellite monitoring</li>
+                            <li>✓ AI analytics</li>
+                            <li>✓ Dashboard access</li>
+                            <li>✓ Annual condition report</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-card">
+                        <h4>Pro</h4>
+                        <div class="price">$2,500</div>
+                        <p>/building/year</p>
+                        <ul>
+                            <li>✓ Everything in Basic</li>
+                            <li>✓ Quarterly reports</li>
+                            <li>✓ Priority support</li>
+                            <li>✓ Custom alerts</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-card">
+                        <h4>Enterprise</h4>
+                        <div class="price">Custom</div>
+                        <p>Contact us</p>
+                        <ul>
+                            <li>✓ Unlimited assets</li>
+                            <li>✓ API access</li>
+                            <li>✓ Dedicated support</li>
+                            <li>✓ Custom integrations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to transform your property intelligence?</h2>
+            <p>Join early-stage partners gaining competitive advantage through satellite, drone, and AI-powered insights.</p>
+            <button class="btn btn-primary">Start Your 14-Day Free Trial</button>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Polymetron. AI property intelligence for commercial real estate and construction.</p>
+        <p>Denver, Colorado | Georgia Tech Partnership | <a href="#" style="color: var(--color-accent);">hello@polymetron.ai</a></p>
+    </footer>
+</body>
+</html>
