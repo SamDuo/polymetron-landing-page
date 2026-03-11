@@ -1,0 +1,20 @@
+# Token — never commit this
+config.css
+
+# Duplicate downloads
+*.html.bak
+index\ \(1\).html
+main\ \(1\).js
+styles\ \(1\).css
+
+# Other projects in this folder
+Asset-Manager/
+Asset-Manager.zip
+Lab\ 1/
+Lab\ 2/
+STID-903761812/
+Polymetron-business-proposal.md
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Polymetron — The Spatial Intelligence Layer for Real Estate & Infrastructure</title>
+    <meta name="description" content="Polymetron is an AI-native platform that fuses geospatial intelligence with agentic AI to power every stage of real estate and infrastructure development." />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="stylesheet" href="./config.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+
+    <!-- Announcement -->
+    <div class="ann-bar">
+      <div class="container ann-inner">
+        <span>Building the geospatial intelligence layer for real estate &amp; infrastructure.</span>
+        <a href="#contact">Early access <span class="arr">&rarr;</span></a>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <header class="topbar" id="topbar">
+      <div class="container nav-wrap">
+        <a href="#top" class="brand">
+          <svg class="brand-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="1" y="1" width="18" height="18" rx="3.5" stroke="currentColor" stroke-width="1.4"/>
+            <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.3"/>
+            <line x1="10" y1="1" x2="10" y2="6.5" stroke="currentColor" stroke-width="1"/>
+            <line x1="10" y1="13.5" x2="10" y2="19" stroke="currentColor" stroke-width="1"/>
+            <line x1="1" y1="10" x2="6.5" y2="10" stroke="currentColor" stroke-width="1"/>
+            <line x1="13.5" y1="10" x2="19" y2="10" stroke="currentColor" stroke-width="1"/>
+          </svg>
+          Polymetron
+        </a>
+        <nav class="nav">
+          <a href="#spatial">Spatial Intelligence</a>
+          <a href="#analyst">AI Analyst</a>
+          <a href="#valuation">Valuation</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <div class="nav-actions">
+          <a href="#contact" class="nav-link-m">Contact</a>
+          <button class="btn btn-primary" data-open-modal>Request Demo</button>
+        </div>
+        <button class="mob-toggle" aria-label="Menu" data-toggle-mobile><span></span><span></span></button>
+      </div>
+    </header>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+      <button class="mob-close" data-close-mobile aria-label="Close">&times;</button>
+      <nav>
+        <a href="#spatial" data-close-mobile>Spatial Intelligence</a>
+        <a href="#analyst" data-close-mobile>AI Analyst</a>
+        <a href="#valuation" data-close-mobile>Valuation</a>
+        <a href="#faq" data-close-mobile>FAQ</a>
+        <a href="#contact" data-close-mobile>Contact</a>
+        <button class="btn btn-primary" data-open-modal data-close-mobile>Request Demo</button>
+      </nav>
+    </div>
+
+    <main id="top">
+
+      <!-- ==================== HERO ==================== -->
+      <section class="hero">
+        <div class="hero-map-bg" id="hero-map"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-grain"></div>
+        <div class="container hero-content">
+          <p class="pill anim" data-anim>AI-NATIVE PLATFORM</p>
+          <h1 class="anim" data-anim>The spatial intelligence layer<br>for real estate <em>&amp; infrastructure</em></h1>
+          <p class="hero-sub anim" data-anim>Geospatial AI that reasons about the physical world — so developers, planners, and investors can move from question to decision in minutes.</p>
+          <div class="hero-actions anim" data-anim>
+            <button class="btn btn-light btn-lg" data-open-modal>Book a Demo</button>
+            <a href="#spatial" class="btn btn-ghost-light btn-lg">See how it works &darr;</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Marquee -->
+      <section class="marquee-strip">
+        <div class="marquee-track">
+          <div class="marquee-inner">
+            <span>Commercial RE</span><span class="dot">&bull;</span>
+            <span>Data Centers</span><span class="dot">&bull;</span>
+            <span>Industrial</span><span class="dot">&bull;</span>
+            <span>Mixed-Use</span><span class="dot">&bull;</span>
+            <span>Multifamily</span><span class="dot">&bull;</span>
+            <span>Logistics</span><span class="dot">&bull;</span>
+            <span>Renewable Energy</span><span class="dot">&bull;</span>
+            <span>Disaster Response</span><span class="dot">&bull;</span>
+            <span>Commercial RE</span><span class="dot">&bull;</span>
+            <span>Data Centers</span><span class="dot">&bull;</span>
+            <span>Industrial</span><span class="dot">&bull;</span>
+            <span>Mixed-Use</span><span class="dot">&bull;</span>
+            <span>Multifamily</span><span class="dot">&bull;</span>
+            <span>Logistics</span><span class="dot">&bull;</span>
+            <span>Renewable Energy</span><span class="dot">&bull;</span>
+            <span>Disaster Response</span><span class="dot">&bull;</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PILLAR 1: SPATIAL INTELLIGENCE ==================== -->
+      <section id="spatial" class="pillar-section">
+        <div class="container">
+          <div class="pillar-header anim" data-anim>
+            <span class="pillar-num">01</span>
+            <p class="label">SPATIAL INTELLIGENCE ENGINE</p>
+            <h2>See every parcel.<br>Understand every risk.</h2>
+            <p class="pillar-sub">Draw a boundary. Our GeoAI engine screens thousands of parcels, evaluates proximity to infrastructure, and maps hazard exposure — in seconds.</p>
+          </div>
+          <div class="iso-demo anim" data-anim>
+            <div class="iso-map-wrap">
+              <div id="iso-map" class="map-container"></div>
+              <div class="iso-controls">
+                <p class="iso-label">Isochrone Analysis</p>
+                <div class="iso-buttons">
+                  <button class="iso-btn active" data-minutes="10">10 min</button>
+                  <button class="iso-btn" data-minutes="20">20 min</button>
+                  <button class="iso-btn" data-minutes="30">30 min</button>
+                </div>
+                <div class="iso-legend">
+                  <div class="iso-legend-item"><span class="iso-swatch s1"></span>Walking</div>
+                  <div class="iso-legend-item"><span class="iso-swatch s2"></span>Cycling</div>
+                  <div class="iso-legend-item"><span class="iso-swatch s3"></span>Driving</div>
+                </div>
+                <p class="iso-hint">Click the map to set a new origin</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PILLAR 2: AI PLANNER & ANALYST ==================== -->
+      <section id="analyst" class="pillar-section pillar-dark">
+        <div class="container">
+          <div class="pillar-header anim" data-anim>
+            <span class="pillar-num num-light">02</span>
+            <p class="label label-light">AI PLANNER &amp; ANALYST</p>
+            <h2>Ask questions.<br>Get spatial answers.</h2>
+            <p class="pillar-sub">An agentic copilot that reasons across zoning, hazards, infrastructure, and market data. Speaks planner. Thinks in coordinates.</p>
+          </div>
+          <div class="chat-demo anim" data-anim>
+            <div class="chat-window">
+              <div class="chat-hbar">
+                <div class="chat-av">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1"/></svg>
+                </div>
+                <span class="chat-name">Polymetron AI</span>
+                <span class="chat-dot"></span>
+              </div>
+              <div class="chat-msgs" id="chat-messages"></div>
+              <div class="chat-input-bar">
+                <input type="text" placeholder="Ask about parcels, zoning, risk..." disabled />
+                <button class="chat-send" disabled><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12l10-5L2 2v4l6 1-6 1v4z" fill="currentColor"/></svg></button>
+              </div>
+            </div>
+            <div class="chat-side">
+              <div class="chat-map-mini" id="chat-map"></div>
+              <div class="chat-results" id="chat-results">
+                <div class="rc-empty"><p>Results appear here</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PILLAR 3: VALUATION & INVESTMENT ==================== -->
+      <section id="valuation" class="pillar-section">
+        <div class="container">
+          <div class="pillar-header anim" data-anim>
+            <span class="pillar-num">03</span>
+            <p class="label">VALUATION &amp; INVESTMENT</p>
+            <h2>Score sites.<br>Rank opportunities.</h2>
+            <p class="pillar-sub">Automated valuation and risk scoring powered by spatial context that financial-only platforms can't compute.</p>
+          </div>
+          <div class="val-demo anim" data-anim>
+            <div class="val-grid">
+              <div class="val-scores">
+                <div class="val-card vc-1">
+                  <div class="vc-top"><span class="vc-rank">#1</span><span class="vc-id">Parcel ATL-2847</span></div>
+                  <div class="vc-ring">
+                    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#e2ddd4" stroke-width="5"/><circle cx="50" cy="50" r="42" fill="none" stroke="#2c6b4f" stroke-width="5" stroke-linecap="round" class="arc" style="--pct:92"/></svg>
+                    <span class="vc-score">92</span>
+                  </div>
+                  <div class="vc-bars">
+                    <div class="vb"><span>Flood</span><div class="vb-t"><div class="vb-f g" style="--w:94%"></div></div><span class="vb-v">Low</span></div>
+                    <div class="vb"><span>Power</span><div class="vb-t"><div class="vb-f g" style="--w:97%"></div></div><span class="vb-v">Adjacent</span></div>
+                    <div class="vb"><span>Zoning</span><div class="vb-t"><div class="vb-f g" style="--w:88%"></div></div><span class="vb-v">Industrial</span></div>
+                    <div class="vb"><span>Climate</span><div class="vb-t"><div class="vb-f g" style="--w:91%"></div></div><span class="vb-v">Low</span></div>
+                  </div>
+                </div>
+                <div class="val-card vc-2">
+                  <div class="vc-top"><span class="vc-rank rk2">#2</span><span class="vc-id">Parcel ATL-1293</span></div>
+                  <div class="vc-ring">
+                    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#e2ddd4" stroke-width="5"/><circle cx="50" cy="50" r="42" fill="none" stroke="#8a7a3c" stroke-width="5" stroke-linecap="round" class="arc" style="--pct:78"/></svg>
+                    <span class="vc-score">78</span>
+                  </div>
+                  <div class="vc-bars">
+                    <div class="vb"><span>Flood</span><div class="vb-t"><div class="vb-f m" style="--w:62%"></div></div><span class="vb-v">Moderate</span></div>
+                    <div class="vb"><span>Power</span><div class="vb-t"><div class="vb-f g" style="--w:85%"></div></div><span class="vb-v">0.3 mi</span></div>
+                    <div class="vb"><span>Zoning</span><div class="vb-t"><div class="vb-f g" style="--w:90%"></div></div><span class="vb-v">Mixed</span></div>
+                    <div class="vb"><span>Climate</span><div class="vb-t"><div class="vb-f m" style="--w:65%"></div></div><span class="vb-v">Moderate</span></div>
+                  </div>
+                </div>
+                <div class="val-card vc-3">
+                  <div class="vc-top"><span class="vc-rank rk3">#3</span><span class="vc-id">Parcel ATL-0584</span></div>
+                  <div class="vc-ring">
+                    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#e2ddd4" stroke-width="5"/><circle cx="50" cy="50" r="42" fill="none" stroke="#c0532c" stroke-width="5" stroke-linecap="round" class="arc" style="--pct:61"/></svg>
+                    <span class="vc-score">61</span>
+                  </div>
+                  <div class="vc-bars">
+                    <div class="vb"><span>Flood</span><div class="vb-t"><div class="vb-f w" style="--w:35%"></div></div><span class="vb-v">High</span></div>
+                    <div class="vb"><span>Power</span><div class="vb-t"><div class="vb-f m" style="--w:70%"></div></div><span class="vb-v">1.2 mi</span></div>
+                    <div class="vb"><span>Zoning</span><div class="vb-t"><div class="vb-f m" style="--w:72%"></div></div><span class="vb-v">Residential</span></div>
+                    <div class="vb"><span>Climate</span><div class="vb-t"><div class="vb-f w" style="--w:40%"></div></div><span class="vb-v">Elevated</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="val-map-wrap">
+                <div id="val-map" class="map-container"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== FOUNDER ==================== -->
+      <section class="vision-section">
+        <div class="container">
+          <div class="vision-layout anim" data-anim>
+            <blockquote>&ldquo;The damage follows a map, and so does who gets help first. Polymetron exists to make that map work for everyone.&rdquo;</blockquote>
+            <div class="vision-meta">
+              <strong>Quan (Sam) Duong</strong>
+              <span>Founder &amp; CEO &bull; Georgia Institute of Technology</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== FAQ ==================== -->
+      <section id="faq" class="faq-section">
+        <div class="container faq-layout">
+          <div class="faq-left anim" data-anim>
+            <p class="label">FAQ</p>
+            <h2>Common questions</h2>
+          </div>
+          <div class="faq-right anim" data-anim>
+            <details><summary><span>What types of development does Polymetron support?</span><span class="faq-icon"></span></summary><p>Commercial, industrial, multifamily, data centers, logistics, mixed-use, and renewable energy infrastructure. Scoring weights adapt to each asset class.</p></details>
+            <details><summary><span>How does AI risk scoring work?</span><span class="faq-icon"></span></summary><p>Each parcel receives a 0–100 composite score evaluating flood risk, power access, climate hazards, zoning fit, and environmental constraints. Weights are configurable per investment thesis.</p></details>
+            <details><summary><span>Can Polymetron integrate with our existing tools?</span><span class="faq-icon"></span></summary><p>Yes. Exports to standard GIS formats, Excel, and PDF. API integrations with common CRE platforms and internal data pipelines.</p></details>
+            <details><summary><span>How fast can we get started?</span><span class="faq-icon"></span></summary><p>Parcel screening begins within days. Full deployment with custom scoring models typically takes two to four weeks.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== CTA ==================== -->
+      <section class="cta-section">
+        <div class="cta-grid-bg"></div>
+        <div class="container cta-inner anim" data-anim>
+          <h2>Ready to see your<br>next site, clearly?</h2>
+          <p>Let spatial intelligence guide your next development decision.</p>
+          <button class="btn btn-light btn-lg" data-open-modal>Book a Demo</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand"><a href="#top" class="brand">Polymetron</a><p>AI-native spatial intelligence for<br>real estate &amp; infrastructure.</p></div>
+          <div class="footer-cols">
+            <div class="fcol"><h4>Platform</h4><a href="#spatial">Spatial Intelligence</a><a href="#analyst">AI Planner &amp; Analyst</a><a href="#valuation">Valuation &amp; Investment</a></div>
+            <div class="fcol"><h4>Solutions</h4><a href="#">Commercial Development</a><a href="#">Data Center Siting</a><a href="#">Industrial &amp; Logistics</a><a href="#">Disaster Response</a></div>
+            <div class="fcol"><h4>Company</h4><a href="#faq">FAQ</a><a href="mailto:qduong7@gatech.edu">Contact</a><a href="#">Careers</a></div>
+          </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Polymetron. All rights reserved.</p><p>Atlanta, GA &bull; Georgia Institute of Technology</p></div>
+      </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal-bg" id="demo-modal" aria-hidden="true">
+      <div class="modal">
+        <button class="modal-x" data-close-modal aria-label="Close"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <h3>Request a Demo</h3>
+        <p class="modal-sub">See how Polymetron can accelerate your development workflow.</p>
+        <form id="demo-form" data-formspree-endpoint="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID">
+          <label><span class="fl">Full Name</span><input name="name" required placeholder="Your name" /></label>
+          <label><span class="fl">Work Email</span><input type="email" name="email" required placeholder="you@company.com" /></label>
+          <label><span class="fl">Company</span><input name="company" placeholder="Organization" /></label>
+          <label><span class="fl">Message</span><textarea name="message" rows="3" placeholder="Tell us about your use case..."></textarea></label>
+          <button class="btn btn-primary btn-lg btn-full" type="submit">Send Request</button>
+          <p class="form-status" id="demo-form-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
