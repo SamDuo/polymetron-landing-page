@@ -90,7 +90,7 @@ demoForm.addEventListener('submit', async function(e) {
   const s = encodeURIComponent('Demo Request — Polymetron');
   const b = encodeURIComponent(`Name: ${fd.get('name')}\nEmail: ${fd.get('email')}\nCompany: ${fd.get('company')}\n\nMessage:\n${fd.get('message')}`);
   setStatus('Opening your email app…', false);
-  window.location.href = `mailto:qduong7@gatech.edu?subject=${s}&body=${b}`;
+  window.location.href = `mailto:samduong@polymetron.org?subject=${s}&body=${b}`;
   setTimeout(() => { demoForm.reset(); closeModal(); }, 400);
 });
 
@@ -134,14 +134,14 @@ function initHeroMap() {
 /* =========================================================
    8. MAPBOX — ISOCHRONE DEMO (Pillar 1)
    ========================================================= */
-let isoMap, isoMarker, isoMinutes = 10;
+let isoMap, isoMarker;
 
 function initIsoMap() {
   if (!HAS_TOKEN) {
     const el = document.getElementById('iso-map');
     el.style.background = 'linear-gradient(135deg, #e8e4dc 0%, #d4ddd0 100%)';
     el.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);font-size:.9rem;text-align:center;padding:24px">
-      <div><p style="margin-bottom:8px;font-weight:600">Mapbox Token Required</p><p style="font-size:.8rem;opacity:.7">Add your token in main.js to enable the live isochrone map</p></div>
+      <div><p style="margin-bottom:8px;font-weight:600">Interactive map coming soon</p></div>
     </div>`;
     return;
   }
@@ -164,38 +164,28 @@ function initIsoMap() {
   isoMap.on('click', (e) => { isoMarker.setLngLat(e.lngLat); fetchIsochrone(e.lngLat); });
 
   isoMap.on('load', () => {
-    // Add empty sources
-    ['walking','cycling','driving'].forEach(p => {
-      isoMap.addSource(`iso-${p}`, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+    // 3 concentric drive-time zones: 30 min first (largest, rendered below smaller)
+    [30, 20, 10].forEach(mins => {
+      isoMap.addSource(`iso-${mins}`, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
     });
-    isoMap.addLayer({ id:'iso-driving', type:'fill', source:'iso-driving', paint:{ 'fill-color':'rgba(192,83,44,0.15)', 'fill-outline-color':'rgba(192,83,44,0.5)' } });
-    isoMap.addLayer({ id:'iso-cycling', type:'fill', source:'iso-cycling', paint:{ 'fill-color':'rgba(138,122,60,0.2)', 'fill-outline-color':'rgba(138,122,60,0.6)' } });
-    isoMap.addLayer({ id:'iso-walking', type:'fill', source:'iso-walking', paint:{ 'fill-color':'rgba(44,107,79,0.2)', 'fill-outline-color':'rgba(44,107,79,0.6)' } });
+    isoMap.addLayer({ id:'iso-30', type:'fill', source:'iso-30', paint:{ 'fill-color':'rgba(192,83,44,0.15)', 'fill-outline-color':'rgba(192,83,44,0.5)' } });
+    isoMap.addLayer({ id:'iso-20', type:'fill', source:'iso-20', paint:{ 'fill-color':'rgba(138,122,60,0.2)', 'fill-outline-color':'rgba(138,122,60,0.6)' } });
+    isoMap.addLayer({ id:'iso-10', type:'fill', source:'iso-10', paint:{ 'fill-color':'rgba(44,107,79,0.2)', 'fill-outline-color':'rgba(44,107,79,0.6)' } });
 
     fetchIsochrone({ lng: ATL_CENTER[0], lat: ATL_CENTER[1] });
-  });
-
-  // Isochrone buttons
-  document.querySelectorAll('.iso-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.iso-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      isoMinutes = parseInt(btn.dataset.minutes);
-      fetchIsochrone(isoMarker.getLngLat());
-    });
   });
 }
 
 async function fetchIsochrone(lngLat) {
   if (!HAS_TOKEN) return;
-  const profiles = ['walking', 'cycling', 'driving'];
-  for (const p of profiles) {
+  const durations = [10, 20, 30];
+  for (const mins of durations) {
     try {
-      const url = `https://api.mapbox.com/isochrone/v1/mapbox/${p}/${lngLat.lng},${lngLat.lat}?contours_minutes=${isoMinutes}&polygons=true&access_token=${MAPBOX_TOKEN}`;
+      const url = `https://api.mapbox.com/isochrone/v1/mapbox/driving/${lngLat.lng},${lngLat.lat}?contours_minutes=${mins}&polygons=true&access_token=${MAPBOX_TOKEN}`;
       const res = await fetch(url);
       const data = await res.json();
-      if (isoMap.getSource(`iso-${p}`)) isoMap.getSource(`iso-${p}`).setData(data);
-    } catch (err) { console.log(`Isochrone ${p} error:`, err); }
+      if (isoMap.getSource(`iso-${mins}`)) isoMap.getSource(`iso-${mins}`).setData(data);
+    } catch (err) { console.log(`Drive-time ${mins}min error:`, err); }
   }
 }
 
@@ -311,7 +301,7 @@ function initValMap() {
     const el = document.getElementById('val-map');
     el.style.background = 'linear-gradient(135deg, #e8e4dc 0%, #d4ddd0 100%)';
     el.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;min-height:400px;color:var(--muted);font-size:.9rem;text-align:center;padding:24px">
-      <div><p style="margin-bottom:8px;font-weight:600">Mapbox Token Required</p><p style="font-size:.8rem;opacity:.7">Add your token in main.js to enable the scoring map</p></div>
+      <div><p style="margin-bottom:8px;font-weight:600">Interactive map coming soon</p></div>
     </div>`;
     return;
   }
