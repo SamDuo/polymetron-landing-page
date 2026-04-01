@@ -93,6 +93,16 @@ The UI should feel like an **intelligence briefing**, not a SaaS dashboard:
 - Regrid Enterprise (~$80K/yr) — nationwide parcels
 - Shovels.ai — AI-enriched permit data
 
+## API Keys (set in .env.local)
+
+```bash
+NEXT_PUBLIC_MAPBOX_TOKEN=       # Mapbox GL JS + Static Images (satellite)
+NEXT_PUBLIC_GOOGLE_MAPS_KEY=    # Google Street View Static API (building photos)
+```
+
+- Mapbox token: account username `sduong`, free 50K tile loads/mo
+- Google Maps: get free key at console.cloud.google.com → APIs & Services → enable "Street View Static API". Free $200/mo credit (~28K Street View images/mo)
+
 ## Commands
 
 ```bash

@@ -170,12 +170,104 @@ Lead with the **compliance checklist** + **community impact dashboard**. Show th
 
 | Priority | What | Time | Impact |
 |----------|------|------|--------|
-| 1 | Plain-language site card | 1 hr | Makes the product instantly understandable |
-| 2 | "Deal killers" section | 30 min | Shows Polymetron catches what others miss |
-| 3 | Compare mode (2-3 parcels) | 1.5 hr | How developers actually make decisions |
-| 4 | "Variance needed?" indicator | 15 min | Most asked question in RE development |
-| 5 | Cost estimate row | 15 min | Connects zoning to money |
-| 6 | 3D as drill-down (not default) | 30 min | Reduces confusion, makes 3D more impactful when shown |
+| 1 | Property card with auto-photo (Street View + Satellite tabs) | 1.5 hr | "Zillow for development" instant recognition |
+| 2 | Plain-language zoning summary | 30 min | "50-story mixed-use tower by right" |
+| 3 | Deal considerations (green checks / amber warnings) | 30 min | Developer scans in 5 seconds |
+| 4 | Property facts grid (owner, year, assessed, lot) | 30 min | LoopNet-style data density |
+| 5 | Compare mode (2-3 parcels side-by-side) | 1.5 hr | How developers actually decide |
+| 6 | 3D envelope as drill-down (not default) | 30 min | Reduces confusion |
+| 7 | Address search bar | 1 hr | "Give us an address, we give you everything" |
+
+---
+
+## Property Card Design ("Zillow for Development Sites")
+
+### Hero Image: Two Tabs (auto-generated, no manual uploads)
+
+| Tab | Source | API | Cost |
+|-----|--------|-----|------|
+| Street View | Google Street View Static API | `GET https://maps.googleapis.com/maps/api/streetview?size=600x400&location={ADDRESS}&key={KEY}` | Free 28K/mo ($200 credit) |
+| Satellite | Mapbox Static Images API | `GET https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/{LNG},{LAT},17,0/600x400?access_token={TOKEN}` | Free 50K/mo |
+
+Google Maps API key: get free at https://console.cloud.google.com → APIs & Services → Street View Static API
+
+### Card Layout
+
+```
++--------------------------------------------------+
+| [Street View]  [Satellite]                        |
+| +----------------------------------------------+ |
+| |                                              | |
+| |         (auto-generated photo)               | |
+| |         1075 Peachtree St NE                 | |
+| |                                              | |
+| +----------------------------------------------+ |
+|                                                  |
+|  1075 Peachtree St NE, Atlanta GA 30309          |
+|  SPI-16 Core  .  0.52 acres  .  Underbuilt      |
+|                                                  |
+|  +--------+ +--------+ +--------+ +----------+  |
+|  | 625 ft | |  25.0  | | 285K   | |   NO     |  |
+|  |Max Ht  | |Max FAR | |Bld SF  | |Variance  |  |
+|  +--------+ +--------+ +--------+ +----------+  |
+|                                                  |
+|  WHAT YOU CAN BUILD                              |
+|  A 50-story mixed-use tower by right. Currently  |
+|  a 30-story office (1985). 50% of allowed        |
+|  density is unused -- room for 285,000 additional|
+|  sqft at $350-450/sqft ($100M-$128M est.)        |
+|                                                  |
+|  DEAL CONSIDERATIONS                             |
+|  [check] No variance needed -- by right          |
+|  [check] MARTA < 0.25 mi -- reduced parking      |
+|  [check] No flood zone                            |
+|  [warn]  Cool roof required (SRI >= 64, +$30-60K)|
+|  [warn]  Heat vulnerability: Moderate (45/100)    |
+|  [warn]  3 active permits within 0.5 mi           |
+|                                                  |
+|  PROPERTY FACTS                                  |
+|  Owner         Peachtree Holdings LLC            |
+|  Held since    2003 (23 years)                   |
+|  Current use   Class A Office                    |
+|  Year built    1985                              |
+|  Lot size      0.52 acres (22,651 sqft)          |
+|  Assessed      $12.4M (2024)                     |
+|  Zoning        SPI-16-SA1 (Core)                 |
+|  Overlays      BeltLine, Midtown DRI             |
+|                                                  |
+|  [View 3D Envelope]  [Compare Sites]             |
+|  [Generate Feasibility Report]                   |
++--------------------------------------------------+
+```
+
+### Data Pipeline (per address)
+
+```
+Address input
+    |
+    +-- Google Street View Static API --> hero photo
+    +-- Mapbox Static API --> satellite tab
+    +-- Atlanta ArcGIS --> zoning designation + overlays
+    +-- Regrid API --> parcel boundary + lot size
+    +-- ATTOM API --> owner, assessed value, year built
+    +-- Polymetron RAG --> plain-language zoning summary
+    +-- Polymetron ML --> heat vulnerability score
+    |
+    v
+Property Card (auto-generated in <1 second)
+```
+
+### For Demo (hardcoded data, real photos)
+- 5 demo parcels with all data pre-filled
+- Street View + Satellite photos fetched live via API
+- Zoning summary written as plain English
+- Deal considerations manually curated per parcel
+
+### For Production (fully automated)
+- Address search bar triggers all API calls
+- RAG pipeline generates zoning summary
+- ML model scores heat vulnerability
+- All data assembled into property card automatically
 
 ---
 
@@ -184,5 +276,5 @@ Lead with the **compliance checklist** + **community impact dashboard**. Show th
 **Before:** "Look at our 3D zoning envelopes with climate risk color overlays"
 (Impressive tech, unclear value)
 
-**After:** "Tell us a site. In 10 seconds we'll tell you what you can build, what it'll cost, and what could kill the deal — including climate risks no one else checks."
+**After:** "Give us any address. In 10 seconds we show you the building, what you can build there, what it costs, and what could kill the deal -- including climate risks no one else checks."
 (Clear value, technology is the enabler)
