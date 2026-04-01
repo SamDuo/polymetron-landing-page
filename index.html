@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polymetron | Midtown Atlanta Zoning Intelligence</title>
+  <meta name="description" content="AI-powered zoning and building code analysis for Midtown Atlanta SPI-16.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%231b3a2d'/><text x='16' y='22' text-anchor='middle' fill='white' font-size='18' font-family='sans-serif' font-weight='700'>P</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-name">POLYMETRON</div>
+      <div class="brand-sub">Urban Intelligence Platform</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-link active" data-view="dashboard">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+        Situation Brief
+      </a>
+      <a href="#" class="nav-link" data-view="buildability">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="10" width="12" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="5" width="10" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="1" width="8" height="3" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+        Site Report
+      </a>
+      <a href="#" class="nav-link" data-view="value">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="1,14 5,8 9,10 15,2" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        Market Intelligence
+      </a>
+    </nav>
+
+    <div class="sidebar-location">
+      <span class="pulse-dot"></span>
+      <div>
+        <div class="loc-city">Midtown Atlanta</div>
+        <div class="loc-district">SPI-16 District</div>
+      </div>
+    </div>
+
+    <div class="sidebar-stats">
+      <div class="stat-label-header">AGENT STATUS</div>
+      <div class="stat-card agent-card">
+        <div class="agent-row"><span class="pulse-dot pulse-green"></span><span class="agent-name">Zoning Analyst</span></div>
+        <div class="agent-detail">12,550 passages scanned</div>
+        <div class="agent-status-tag active">ACTIVE</div>
+      </div>
+      <div class="stat-card agent-card">
+        <div class="agent-row"><span class="pulse-dot pulse-green"></span><span class="agent-name">Market Monitor</span></div>
+        <div class="agent-detail">35,290 sales tracked</div>
+        <div class="agent-status-tag active">ACTIVE</div>
+      </div>
+      <div class="stat-card agent-card">
+        <div class="agent-row"><span class="pulse-dot pulse-amber"></span><span class="agent-name">Risk Scanner</span></div>
+        <div class="agent-detail">5 climate layers</div>
+        <div class="agent-status-tag idle">MONITORING</div>
+      </div>
+      <div class="agent-scan">Last scan: 2 min ago</div>
+    </div>
+
+    <div class="sidebar-footer">Georgia Institute of Technology</div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <div class="breadcrumb"><span class="engage-badge">ENGAGEMENT</span> Midtown Atlanta SPI-16 <span class="classify-badge">PROPRIETARY</span></div>
+      <div class="toolbar-right">
+        <div class="persona-toggle">
+          <button class="persona-btn active" data-persona="developer">Developer</button>
+          <button class="persona-btn" data-persona="planner">City Planner</button>
+        </div>
+        <button class="btn-news" id="btn-news">News</button>
+        <button class="btn-demo" id="btn-request-demo">Request Demo</button>
+      </div>
+    </div>
+
+    <!-- DASHBOARD VIEW -->
+    <div class="view view-dashboard active" id="view-dashboard">
+      <!-- Metric Ribbon -->
+      <div class="metric-ribbon">
+        <div class="ribbon-item"><span class="ribbon-icon">&#9632;</span><strong>6</strong> Subdistricts</div>
+        <div class="ribbon-item"><span class="ribbon-icon">&#8597;</span><strong>625 ft</strong> Max Height</div>
+        <div class="ribbon-item"><span class="ribbon-icon">&#9638;</span><strong>25.0</strong> Max FAR</div>
+        <div class="ribbon-item"><span class="ribbon-icon">&#9728;</span><strong>5</strong> Climate Provisions</div>
+        <div class="ribbon-item"><span class="ribbon-icon">&#9041;</span><strong>35K</strong> Sales Records</div>
+        <div class="ribbon-item"><span class="ribbon-icon">&#9998;</span><strong>12,550</strong> Code Passages</div>
+      </div>
+      <div class="dash-split">
+        <!-- MAP -->
+        <div class="map-wrap">
+          <div id="map"></div>
+          <div class="map-watermark">POLYMETRON</div>
+          <!-- Map Legend -->
+          <div class="map-legend" id="map-legend">
+            <div class="legend-title">ZONES</div>
+            <div class="legend-items" id="legend-items"></div>
+          </div>
+        </div>
+        <!-- DETAIL PANEL (Dark Agent Panel - Pillar 02 style) -->
+        <div class="detail-panel dark-panel" id="detail-panel">
+          <!-- Agent Header -->
+          <div class="agent-header">
+            <span class="pulse-dot pulse-green"></span>
+            <span class="agent-header-name">Polymetron AI</span>
+            <span class="agent-header-dot"></span>
+          </div>
+
+          <!-- Default state: Intelligence Brief -->
+          <div id="panel-default">
+            <div class="alert-card alert-red">
+              <strong>Heat vulnerability alert:</strong> Census tracts 13121-0042 through 0047 show compounding risk &mdash; surface temp +4.2&deg;F above metro average. 3 of 8 tracts are USDA food deserts, cooling center coverage gap of 3.5 miles.
+            </div>
+            <div class="followup-pills">
+              <button class="pill-btn" onclick="selectZoneById('spi16-core')">Which populations are most exposed?</button>
+              <button class="pill-btn" onclick="switchTab('ai')">What interventions reduce exposure?</button>
+            </div>
+            <div class="agent-response">
+              Analyzing demographic overlay... 12,458 residents in affected tracts. 34% are 65+ or have chronic conditions. Nearest hospital: Grady Memorial, 4.1 mi. Nearest cooling center: M.L.K. Jr. Recreation Center, 2.3 mi from centroid.
+            </div>
+            <div class="brief-divider"></div>
+            <div class="brief-section">
+              <div class="brief-label">KEY METRICS</div>
+              <div class="brief-metrics">
+                <div class="brief-metric"><span class="bm-val">1.03</span><span class="bm-label">Sale/FMV Ratio</span></div>
+                <div class="brief-metric"><span class="bm-val">1,777</span><span class="bm-label">Vacant Parcels</span></div>
+                <div class="brief-metric"><span class="bm-val">47</span><span class="bm-label">Active Permits</span></div>
+              </div>
+            </div>
+            <div class="brief-section">
+              <div class="brief-label">RECOMMENDED ACTIONS</div>
+              <div class="brief-action">1. Review SPI-16 Core setback changes before Q2 submittals</div>
+              <div class="brief-action">2. Model cool roof compliance for pipeline projects</div>
+              <div class="brief-action">3. Evaluate BeltLine Eastside parcels &mdash; window closing</div>
+            </div>
+            <div class="agent-input-wrap">
+              <input type="text" class="agent-input" placeholder="Agents monitor and alert autonomously...">
+              <button class="agent-send">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M14 2L7 9M14 2L9.5 14L7 9M14 2L2 6.5L7 9" stroke="white" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Zone selected state -->
+          <div id="panel-zone" style="display:none">
+            <div class="satellite-wrap" id="satellite-img"></div>
+            <button class="btn-back" id="btn-back">&larr; Back to district</button>
+            <h2 class="panel-title" id="zone-name"></h2>
+            <p class="panel-subtitle" id="zone-sub"></p>
+            <div class="hazard-chips" id="zone-hazards"></div>
+            <div class="divider"></div>
+
+            <!-- Tabs -->
+            <div class="tab-bar">
+              <button class="tab-btn active" data-tab="overview">Overview</button>
+              <button class="tab-btn" data-tab="code">Code &amp; Climate</button>
+              <button class="tab-btn" data-tab="feasibility">Feasibility</button>
+              <button class="tab-btn" data-tab="ai">Agent Analysis</button>
+            </div>
+
+            <!-- Tab: Overview -->
+            <div class="tab-content active" id="tab-overview">
+              <div class="stat-grid" id="zone-stats"></div>
+              <div class="amendments-section">
+                <div class="ov-label">KEY AMENDMENTS</div>
+                <p class="amendments-text" id="zone-amendments"></p>
+              </div>
+            </div>
+
+            <!-- Tab: Code & Climate -->
+            <div class="tab-content" id="tab-code">
+              <h3 class="section-header">Climate Resilience Provisions</h3>
+              <ul class="climate-list" id="zone-climate"></ul>
+              <div class="divider"></div>
+              <h3 class="section-header">Building Code</h3>
+              <div class="code-info">
+                <p><strong>Base:</strong> 2024 IBC with Georgia Amendments</p>
+                <p><strong>Effective:</strong> January 1, 2026</p>
+                <p style="margin-top:10px"><strong>Key provisions:</strong></p>
+                <ul class="provisions-list">
+                  <li>Cool Roof: SRI &ge; 64, reflectance &ge; 0.55</li>
+                  <li>Stormwater: First 1-inch green infrastructure retention</li>
+                  <li>Energy: IECC 2015 + LEED Silver (SPI-16)</li>
+                  <li>Trees: 75,000 new by 2030, recompense for removals</li>
+                  <li>Benchmarking: Buildings &gt;25K sq ft report annually</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Tab: Feasibility -->
+            <div class="tab-content" id="tab-feasibility">
+              <div class="feasibility-cards">
+                <div class="feas-card feas-permitted">
+                  <div class="feas-bar green"></div>
+                  <h4>Permitted Envelope</h4>
+                  <div class="feas-stat"><span>Max Height</span><strong id="feas-height"></strong></div>
+                  <div class="feas-stat"><span>FAR</span><strong id="feas-far"></strong></div>
+                  <div class="feas-stat"><span>Ground Floor</span><strong>Active uses required</strong></div>
+                </div>
+                <div class="feas-card feas-practical">
+                  <div class="feas-bar amber"></div>
+                  <h4>Feasibility</h4>
+                  <div class="feas-stat"><span>Construction</span><strong id="feas-cost"></strong></div>
+                  <div class="feas-stat"><span>Absorption</span><strong id="feas-absorption"></strong></div>
+                  <div class="feas-stat"><span>Complexity</span><strong id="feas-complexity"></strong></div>
+                </div>
+              </div>
+              <div class="score-wrap">
+                <svg class="score-ring" viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="52" fill="none" stroke="#e2ddd4" stroke-width="8"/>
+                  <circle cx="60" cy="60" r="52" fill="none" stroke-width="8" stroke-linecap="round" id="score-arc"
+                    stroke-dasharray="327" stroke-dashoffset="327" transform="rotate(-90 60 60)"/>
+                </svg>
+                <div class="score-num" id="score-num">0</div>
+                <div class="score-label">Buildability Score</div>
+              </div>
+              <div class="insight-box" id="feas-insight"></div>
+            </div>
+
+            <!-- Tab: Ask AI -->
+            <div class="tab-content" id="tab-ai">
+              <div class="preset-grid" id="preset-btns"></div>
+              <div class="chat-messages" id="chat-messages"></div>
+              <div class="chat-input-wrap">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Ask agent for analysis...">
+                <button class="chat-send" id="chat-send">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 2L7 9M14 2L9.5 14L7 9M14 2L2 6.5L7 9" stroke="white" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VALUE ANALYSIS VIEW -->
+    <div class="view view-value" id="view-value">
+      <h2 class="page-title">Market Intelligence</h2>
+      <p class="page-subtitle">Midtown Atlanta Investment Thesis &mdash; Fulton County, 2011&ndash;2022</p>
+      <div class="thesis-narrative">Polymetron&rsquo;s market intelligence agents analyzed 25,757 transactions across Midtown Atlanta and identified a 71% valuation swing from post-recession trough to BeltLine-driven peak. Current market at equilibrium (ratio 1.03). Assessment: value creation now requires development execution, not land speculation.</div>
+      <div class="value-stats">
+        <div class="v-stat"><div class="v-num" data-count="25757">0</div><div class="v-label">Midtown Sales</div></div>
+        <div class="v-stat"><div class="v-num">1.02</div><div class="v-label">Median Sale/FMV</div></div>
+        <div class="v-stat"><div class="v-num" data-count="3741">0</div><div class="v-label">High Opportunity</div></div>
+        <div class="v-stat"><div class="v-num" data-count="1777">0</div><div class="v-label">Vacant Parcels</div></div>
+      </div>
+      <div class="value-charts">
+        <div class="chart-container">
+          <h3 class="section-header">Sale/FMV Ratio &mdash; Midtown Atlanta</h3>
+          <p class="chart-subtitle">71% swing from 0.79 (2012) to 1.35 (2017) across 25,757 transactions</p>
+          <canvas id="ratioChart" height="260"></canvas>
+        </div>
+        <div class="chart-container">
+          <h3 class="section-header">Value Delta Distribution (Total)</h3>
+          <p class="chart-subtitle">All years combined &mdash; 18,419 valid sales by pricing tier</p>
+          <canvas id="deltaChart" height="260"></canvas>
+        </div>
+      </div>
+      <div class="value-charts" style="grid-template-columns:1fr;margin-top:0">
+        <div class="chart-container">
+          <div class="chart-header-row">
+            <div>
+              <h3 class="section-header">Tier Breakdown by Year</h3>
+              <p class="chart-subtitle">Select a year to see how sales distributed across value tiers</p>
+            </div>
+            <select id="yearSelect" class="year-select"></select>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;max-width:480px;margin:0 auto">
+            <canvas id="tierChart" height="280"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="insight-row">
+        <div class="insight-card border-red"><h4>71% Swing</h4><p>Midtown ratio swung from 0.79 (2012) to 1.35 (2017) &mdash; fastest appreciation in the dataset.</p></div>
+        <div class="insight-card border-green"><h4>1,777 Vacant Parcels</h4><p>Vacant land in SPI-16 zones with FAR up to 25.0 &mdash; dramatically underutilized.</p></div>
+        <div class="insight-card border-amber"><h4>BeltLine Premium</h4><p>Old Fourth Ward hit 1.51 ratio in 2017 &mdash; trail adjacency commands 15-20% rent premium.</p></div>
+      </div>
+      <div class="data-source">Source: Fulton County Tax Assessor via Georgia Tech HUP Lab | 427,617 total county records | 2011&ndash;2022</div>
+    </div>
+
+    <!-- BUILDABILITY VIEW -->
+    <div class="view view-build" id="view-buildability">
+      <h2 class="page-title">Site Feasibility Report</h2>
+      <p class="page-subtitle">Permitted development envelope vs. practical feasibility &mdash; Midtown SPI-16</p>
+      <div class="zone-pills" id="zone-pills"></div>
+      <div class="build-content" id="build-content"></div>
+    </div>
+  </main>
+
+  <!-- News Panel -->
+  <div class="news-panel" id="news-panel">
+    <div class="news-header">
+      <h3>News to Know</h3>
+      <button class="news-close" id="news-close">&times;</button>
+    </div>
+    <div class="news-list" id="news-list"></div>
+    <div class="news-footer">Powered by Polymetron Intelligence</div>
+  </div>
+  <div class="news-overlay" id="news-overlay"></div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
